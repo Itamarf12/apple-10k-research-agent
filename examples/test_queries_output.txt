@@ -1,0 +1,68 @@
+Example outputs: pytest tests/test_queries.py -s
+(Gemini + Tavily, run on 2026-11-09)
+
+[Plan]
+1. **document_qa**: Search Apple's FY2025 10-K to identify and extract the top 3 risk factors and find the Research and Development (R&D) expense and total revenue for the fiscal year.
+2. **calculator**: Compute the percentage of total revenue spent on R&D by dividing the R&D expense by the total revenue and multiplying by 100.
+[Tool: document_qa] {'query': 'Item 1A Macroeconomic and Industry Risks'}
+[Tool: document_qa] {'query': 'research and development expense and total net sales 2025'}
+[Tool: calculator] {'expression': '34550 / 416161 * 100'}
+
+TOOLS: ['document_qa', 'document_qa', 'calculator'] 
+ **Top 3 Risk Factors**
+Apple lists its risk factors in Item 1A of the fiscal 2025 Form 10-K (this order reflects the filing structure, not an official ranking by importance):
+1. **Global and Regional Economic Conditions**: The Company’s operations and performance depend significantly on global and regional economic conditions, as a majority of sales and supplier/manufacturing facilities are located outside the U.S. Adverse macroeconomic conditions (such as slow growth, recession, high inflation, and currency fluctuations) can adversely impact consumer confidence and spending and materially affect demand [10-K FY2025, Item 1A – Risk Factors, p. 5].
+2. **Impact of Economic Conditions on Partners**: Uncertainty about or a decline in global or regional economic conditions can also severely impact suppliers, contract manufacturers, logistics providers, distributors, cellular network carriers, and developers (potentially leading to financial instability, credit issues, or insolvency) [10-K FY2025, Item 1A – Risk Factors, p. 5].
+3. **Political Events, Trade Disputes, and Geopolitical Tensions**: Political events, trade and other international disputes, geopolitical tensions, conflict, terrorism, natural disasters, and public health issues can have a material adverse effect on Apple and its partners, disrupting manufacturing, delivery, and supply chains [10-K FY2025, Item 1A – Risk Factors, p. 6].
+
+**Research and Development (R&D) Expense Percentage**
+* R&D Expense: $34,550 million [10-K FY2025, Item 7 – MD&A, Operating Expenses, p. 24]
+* Total Net Sales: $416,161 million [10-K FY2025, Item 7 – MD&A, Products and Services Performance, p. 23]
+* Calculation: 34,550 / 416,161 * 100 = 8.30% (reported as 8% in the MD&A table)
+.[Plan]
+1. **document_qa**: Search Apple's FY2025 10-K for gross margin figures and cited reasons for margin pressure, risks, or cost factors in the MD&A section.
+2. **tavily_search**: Search the live web for Microsoft's current gross margin to get the latest available financial data for comparison.
+3. **calculator**: Compute the percentage difference or absolute comparison between Apple's and Microsoft's gross margins.
+[Tool: document_qa] {'query': 'gross margin percentage consolidated statements of operations 2025'}
+[Tool: document_qa] {'query': 'Gross Margin MD&A Products Services 2025'}
+[Tool: document_qa] {'query': 'Item 1A gross margin downward pressure competitive pricing costs'}
+[Tool: tavily_search] {'query': 'Microsoft earnings release gross margin revenue cost of revenue investor relations latest quarter 2026'}
+[Tool: document_qa] {'query': 'Item 8 Consolidated Statements of Operations Microsoft revenue gross margin search'}
+[Tool: tavily_search] {'query': '"Microsoft" "Revenue" "Gross margin" OR "Cost of product and service revenue" FY2026 OR "June 30, 2026" earnings release table'}
+[Tool: calculator] {'expression': '225465 / 331800 * 100'}
+[Tool: calculator] {'expression': '67.95 - 46.9'}
+
+TOOLS: ['document_qa', 'document_qa', 'document_qa', 'tavily_search', 'document_qa', 'tavily_search', 'calculator', 'calculator'] 
+ ### Gross Margin Comparison
+
+* **Apple Inc. (Fiscal Year 2025 ended September 27, 2025):** 
+  * Total gross margin was $195,201 million on total net sales of $416,161 million, resulting in a gross margin percentage of **46.9%** (Products: 36.8%, Services: 75.4%) [10-K FY2025, Item 7 – MD&A, Gross Margin, p. 24].
+* **Microsoft Corporation (Fiscal Year 2026 ended June 30, 2026):** 
+  * Gross margin was $225,465 million on revenue of $331,800 million, resulting in a gross margin percentage of approximately **68.0%** ($225,465 / $331,800 * 100) [Tavily: https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast | FY26 Q4 - Press Releases - Investor Relations - Microsoft | retrieved 2026-11-09].
+* **Comparison:** 
+  * Microsoft's current gross margin percentage exceeds Apple's by **21.1 percentage points** (67.95% - 46.9% = 21.05 percentage points) [Calculator, 10-K FY2025, p. 24, and Tavily: Microsoft FY26 Q4 Press Release]. 
+  * *Note:* Apple's figures are for fiscal year 2025, while Microsoft's figures cover fiscal year 2026.
+
+---
+
+### Reasons for Margin Pressure Cited in Apple’s 10-K
+
+**MD&A Performance Discussion:**
+* **Products Gross Margin:** Increased in dollar terms due to favorable costs and product mix, but the *percentage* decreased due to product mix shifts and tariff costs [10-K FY2025, Item 7 – MD&A, Products Gross Margin, p. 24].
+* **Services Gross Margin Percentage:** Increased due to a favorable mix of services, though partially offset by higher costs [10-K FY2025, Item 7 – MD&A, Services Gross Margin, p. 24].
+
+**Item 1A Risk Factors (General Downward Pressures and Volatility):**
+* Continued industry-wide global product pricing pressures and potential pricing actions taken in response [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Increased competition and competitors aggressively cutting prices [10-K FY2025, Item 1A – Risk Factors, pp. 7, 15].
+* Ability to effectively stimulate demand for products and services [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Compressed product life cycles [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Supply shortages and potential increases in component costs, outside manufacturing services, and content delivery [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Ability to manage product quality and warranty costs effectively [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Shifts in product, service, geographic, currency, or channel mix, including regulatory changes requiring offering modifications [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Fluctuations in foreign exchange rates [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Inflation and other macroeconomic pressures [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Imposition of new or increased tariffs, trade restrictions, and retaliatory actions [10-K FY2025, Item 1A – Risk Factors, p. 15].
+* Introduction of new products or services with lower profit margins [10-K FY2025, Item 1A – Risk Factors, p. 15].
+.
+
+2 passed in 20.47s
