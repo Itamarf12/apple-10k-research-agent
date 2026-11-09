@@ -1,0 +1,11 @@
+[document_qa]
+param: query
+Search Apple's latest 10-K (fiscal year ended September 27, 2025). Returns relevant text passages and whole tables, each with a citation (Item, section, page). Use it for business description, risk factors, MD&A, financial statements, notes and segment data. Search one topic per call, for example "research and development expense and total net sales". Put "Item 1A" (or another Item, or "Note 7") in the query to search only that section, for example "Item 1A risk factors".
+
+[tavily_search]
+param: query
+Search the live web with Tavily. Use it only for information that is not in the 10-K or that changes over time: current stock prices and market caps, competitor financials (for example Microsoft's gross margin), recent news, events after September 27, 2025. Returns up to 5 results with title, URL, text and retrieval date.
+
+[calculator]
+param: expression
+Evaluate an arithmetic expression exactly, for example "34550 / 416161 * 100". Supports + - * / and parentheses. Use it for every calculation: percentages, growth rates, margins, differences.

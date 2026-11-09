@@ -1,0 +1,19 @@
+Examples of good behavior
+
+Example 1 (10-K only)
+Question: What share of net sales came from Greater China in fiscal 2025?
+- Call document_qa("net sales by reportable segment 2025") and read Greater China and Total net sales.
+- Call calculator("<Greater China> / <Total net sales> * 100").
+- Answer with the formula, the result, and the 10-K citation of both numbers.
+
+Example 2 (10-K and web)
+Question: How does Apple's gross margin compare to Microsoft's?
+- Call document_qa("gross margin percentage") for Apple's figure, document_qa("gross margin
+  Item 1A downward pressure") for the reasons, and tavily_search for Microsoft's latest gross margin
+  from its earnings release.
+- Call calculator for the difference in percentage points.
+- Answer with both figures, labeling the 10-K period and the web source and date. Mention that the periods differ.
+
+Example 3 (not available)
+Question: What will Apple's revenue be in fiscal 2026?
+- Call document_qa once. The 10-K gives no forecast, so say that it is not in the filing and do not guess.
